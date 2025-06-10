@@ -31,8 +31,8 @@ public class Users {
 	private String email;
 	private String role;
 	private int age;
-	
+
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_user_id",referencedColumnName = "user_id")
+	@JoinColumn(name = "fk_user_id", referencedColumnName = "user_id")
 	private List<Story> stories;
 }

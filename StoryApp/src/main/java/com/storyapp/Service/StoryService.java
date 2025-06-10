@@ -1,10 +1,12 @@
 package com.storyapp.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.storyapp.Exceptions.StoryNotFoundException;
 import com.storyapp.model.Story;
 import com.storyapp.repository.StoryRepository;
 
@@ -12,17 +14,34 @@ import com.storyapp.repository.StoryRepository;
 public class StoryService {
 	@Autowired
 	private StoryRepository storyRepository;
-	
+
 	public String addStory(Story story) {
 		storyRepository.save(story);
 		return "Added";
 	}
-	
+
 	public List<Story> showStoriesByTitle(String title) {
 		return storyRepository.showAllSoriesByTitle(title);
 	}
-	
-	public List<Story> showStoriesByAuthor(String authorName){
+
+	public List<Story> showStoriesByAuthor(String authorName) {
 		return storyRepository.showAllStoriesByAuthor(authorName);
+	}
+
+	public String deleteStory(long id) throws StoryNotFoundException {
+
+		Optional<Story> story = storyRepository.findById(id);
+		if (story == null) {
+			throw new StoryNotFoundException("Story Not Found");
+		}
+		storyRepository.deleteById(id);
+		return "Deleted";
+	}
+
+	public String updateStory(long id, Story story) {
+		Story story2 = storyRepository.findByStoryId(id);
+		story2.setDescription(story.getDescription());
+		storyRepository.save(story2);
+		return "Updated";
 	}
 }

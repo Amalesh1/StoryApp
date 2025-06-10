@@ -12,4 +12,6 @@ public interface StoryRepository extends JpaRepository<Story, Long> {
 
 	List<Story> showAllStoriesByAuthor(String authorName);
 
+	Story findByStoryId(long id);
+
 }
