@@ -1,0 +1,9 @@
+package com.storyapp.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.storyapp.model.Users;
+
+public interface UserRepository extends JpaRepository<Users, Long>{
+
+}
