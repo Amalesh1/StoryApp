@@ -6,4 +6,6 @@ import com.storyapp.model.Users;
 
 public interface UserRepository extends JpaRepository<Users, Long>{
 
+	Users findByEmail(String username);
+
 }

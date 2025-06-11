@@ -21,11 +21,11 @@ public class StoryService {
 	}
 
 	public List<Story> showStoriesByTitle(String title) {
-		return storyRepository.showAllSoriesByTitle(title);
+		return storyRepository.findByStoryName(title);
 	}
 
-	public List<Story> showStoriesByAuthor(String authorName) {
-		return storyRepository.showAllStoriesByAuthor(authorName);
+	public List<Story> showStoriesByAuthor(String genre) {
+		return storyRepository.findByGenre(genre);
 	}
 
 	public String deleteStory(long id) throws StoryNotFoundException {

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loading...</title>
+    <style>
+        #bar {
+            width: 0%;
+            height: 30px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+        }
+        #container {
+            width: 100%;
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h2>Loading, please wait...</h2>
+    <div id="container">
+        <div id="bar">0%</div>
+    </div>
+
+    <script>
+        let width = 0;
+        const bar = document.getElementById("bar");
+        const interval = setInterval(() => {
+            if (width >= 100) {
+                clearInterval(interval);
+                window.location.href = "/home"; // redirect after loading
+            } else {
+                width++;
+                bar.style.width = width + "%";
+                bar.innerHTML = width + "%";
+            }
+        }, 50);
+    </script>
+</body>
+</html>
