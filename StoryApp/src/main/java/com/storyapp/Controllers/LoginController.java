@@ -35,7 +35,7 @@ public class LoginController {
 			e.printStackTrace();
 		}
 		model.addAttribute("username", username);
-		return "home"; // maps to home.html
+		return "home";
 	}
 
 }

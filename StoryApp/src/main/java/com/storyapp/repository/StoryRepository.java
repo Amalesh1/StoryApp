@@ -16,4 +16,6 @@ public interface StoryRepository extends JpaRepository<Story, Long> {
 
 	Story findByStoryId(long id);
 
+	List<Story> findAllByUserId(long userId);
+
 }

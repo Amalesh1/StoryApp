@@ -19,8 +19,9 @@ import lombok.ToString;
 public class Story {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long storyId;
+	private long storyId;
 	private String storyName;
+	private long userId;
 	private String genre;
 	private String description;
 }

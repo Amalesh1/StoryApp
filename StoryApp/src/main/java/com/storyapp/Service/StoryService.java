@@ -44,4 +44,9 @@ public class StoryService {
 		storyRepository.save(story2);
 		return "Updated";
 	}
+
+	public List<Story> showStoriesOfUser(long userId) {
+		// TODO Auto-generated method stub
+		return storyRepository.findAllByUserId(userId);
+	}
 }
