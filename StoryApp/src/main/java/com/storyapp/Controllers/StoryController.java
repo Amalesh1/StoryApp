@@ -1,5 +1,6 @@
 package com.storyapp.Controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 
 import com.storyapp.Service.StoryService;
+import com.storyapp.dto.StoryDTO;
 import com.storyapp.model.Story;
+import com.storyapp.model.Users;
 import com.storyapp.repository.UserRepository;
 
 @Controller
@@ -57,6 +60,30 @@ public class StoryController {
 
 	    model.addAttribute("story", story);
 	    return "create-story"; // Thymeleaf template
+	}
+	
+	@GetMapping("/stories/read")
+	public String getStories(Model model) {
+		List<Story> stories = storyService.showAllStories();
+		List<StoryDTO> storyDTOs = new ArrayList<>();
+
+		for (Story story : stories) {
+		    Users user = userRepository.findById(story.getUserId()).orElse(null);
+		    String authorName = (user != null) ? user.getName() : "Unknown";
+
+		    StoryDTO dto = new StoryDTO();
+		    dto.setStoryId(story.getStoryId());
+		    dto.setStoryName(story.getStoryName());
+		    dto.setGenre(story.getGenre());
+		    dto.setDescription(story.getDescription());
+		    dto.setAuthorName(authorName);
+
+		    storyDTOs.add(dto);
+		}
+
+		model.addAttribute("stories", storyDTOs);
+		return "stories";
+
 	}
 
 }

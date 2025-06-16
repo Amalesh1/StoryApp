@@ -49,4 +49,9 @@ public class StoryService {
 		// TODO Auto-generated method stub
 		return storyRepository.findAllByUserId(userId);
 	}
+
+	public List<Story> showAllStories() {
+		// TODO Auto-generated method stub
+		return storyRepository.findAll();
+	}
 }
