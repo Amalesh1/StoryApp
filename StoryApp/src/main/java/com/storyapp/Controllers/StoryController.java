@@ -2,6 +2,7 @@ package com.storyapp.Controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
@@ -45,10 +46,33 @@ public class StoryController {
 		return "home";
 	}
 	
-	@GetMapping("/{userId}/stories")
-	public ResponseEntity<List<Story>> userStories(@PathVariable long userId){
-		List<Story> stories = storyService.showStoriesOfUser(userId);
-		return new ResponseEntity<List<Story>> (stories,HttpStatusCode.valueOf(200));
+	@GetMapping("/my/stories")
+	public String userStories(Model model,Authentication authentication){
+		try {
+			long userId =(long) userRepository.findByEmail(authentication.getName()).getUserId();
+			List<Story> stories = storyService.showStoriesOfUser(userId);
+			if(stories==null) {
+				return "<h1>You Don't have any Stories</h1>";
+			}
+			List<StoryDTO> storyDTOs = new ArrayList<>();
+
+			for (Story story : stories) {
+			    Optional<Users> user = userRepository.findById(userId);
+			    String authorName = user.get().getName();
+			    StoryDTO dto = new StoryDTO();
+			    dto.setStoryId(story.getStoryId());
+			    dto.setStoryName(story.getStoryName());
+			    dto.setGenre(story.getGenre());
+			    dto.setDescription(story.getDescription());
+			    dto.setAuthorName(authorName);
+
+			    storyDTOs.add(dto);
+			    model.addAttribute("stories",storyDTOs);}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "my-stories";
 	}
 	
 	@GetMapping("/write/story")
@@ -70,20 +94,16 @@ public class StoryController {
 		for (Story story : stories) {
 		    Users user = userRepository.findById(story.getUserId()).orElse(null);
 		    String authorName = (user != null) ? user.getName() : "Unknown";
-
 		    StoryDTO dto = new StoryDTO();
 		    dto.setStoryId(story.getStoryId());
 		    dto.setStoryName(story.getStoryName());
 		    dto.setGenre(story.getGenre());
 		    dto.setDescription(story.getDescription());
 		    dto.setAuthorName(authorName);
-
 		    storyDTOs.add(dto);
 		}
-
 		model.addAttribute("stories", storyDTOs);
 		return "stories";
-
 	}
 
 }
