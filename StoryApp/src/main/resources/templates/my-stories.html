@@ -1,34 +1,33 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org">
+
+
 <head>
-<meta charset="UTF-8">
-<title>Stories</title>
-<!-- Bootstrap CSS -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-	rel="stylesheet">
+	<meta charset="UTF-8">
+	<title>Stories</title>
+	<!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
 	<nav class="navbar navbar-expand-lg bg-body-tertiary">
 		<div class="container-fluid">
 			<a class="navbar-brand">StoryApp</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarNav"
-				aria-controls="navbarNav" aria-expanded="false"
-				aria-label="Toggle navigation">
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="/home">Home</a></li>
+					<li class="nav-item"><a class="nav-link active" aria-current="page" href="/home">Home</a></li>
 					<li class="nav-item"><a class="nav-link" href="/write/story">Write</a>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="/stories/read">Read</a>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="/my/stories">My Stories</a>
 					</li>
-					
+
 				</ul>
 			</div>
 		</div>
@@ -37,20 +36,24 @@
 		<h1 class="text-center mb-2">All Stories</h1>
 		<div class="row justify-content-center">
 			<div class="col-md-8">
-				<ul class="list-group">
-					<li class="list-group-item" th:each="story : ${stories}">
-						<h4><div class="fw-bold" th:text="${story.storyName}"></div></h4>
-						<h6><div class="fw-bold" th:text="${story.authorName}"></div></h6>
-						<h9><div class="fw-bold" th:text="${story.genre}"></div></h9>
-						<p><div class="fw-bold" th:text="${story.description}"></div></p>
-					</li>
-				</ul>
+
+				<div th:each="story : ${stories}" class="mb-4">
+					<div class="card shadow-sm">
+						<div class="card-body">
+							<h4 class="card-title" th:text="${story.storyName}">Story Title</h4>
+							<h6 class="card-subtitle mb-2 text-muted" th:text="${story.authorName}">Author</h6>
+							<span class="badge bg-secondary mb-2" th:text="${story.genre}">Genre</span>
+							<p class="card-text" th:text="${story.description}">Description</p>
+						</div>
+					</div>
+				</div>
+
 			</div>
 		</div>
 	</div>
 
 	<!-- Bootstrap JS Bundle (Optional) -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

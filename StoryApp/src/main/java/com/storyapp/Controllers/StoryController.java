@@ -3,20 +3,14 @@ package com.storyapp.Controllers;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
-
 import com.storyapp.Service.StoryService;
 import com.storyapp.dto.StoryDTO;
 import com.storyapp.model.Story;
@@ -71,17 +65,14 @@ public class StoryController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		return "my-stories";
 	}
 	
 	@GetMapping("/write/story")
 	public String showStoryForm(Model model, Authentication authentication) {
 	    long userId = userRepository.findByEmail(authentication.getName()).getUserId();
-
 	    Story story = new Story();
 	    story.setUserId(userId);
-
 	    model.addAttribute("story", story);
 	    return "create-story"; // Thymeleaf template
 	}
@@ -90,7 +81,6 @@ public class StoryController {
 	public String getStories(Model model) {
 		List<Story> stories = storyService.showAllStories();
 		List<StoryDTO> storyDTOs = new ArrayList<>();
-
 		for (Story story : stories) {
 		    Users user = userRepository.findById(story.getUserId()).orElse(null);
 		    String authorName = (user != null) ? user.getName() : "Unknown";

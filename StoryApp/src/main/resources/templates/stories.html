@@ -38,12 +38,16 @@
 		<div class="row justify-content-center">
 			<div class="col-md-8">
 				<ul class="list-group">
-					<li class="list-group-item" th:each="story : ${stories}">
-						<h4><div class="fw-bold" th:text="${story.storyName}"></div></h4>
-						<h6><div class="fw-bold" th:text="${story.authorName}"></div></h6>
-						<h9><div class="fw-bold" th:text="${story.genre}"></div></h9>
-						<p><div class="fw-bold" th:text="${story.description}"></div></p>
-					</li>
+					<div th:each="story : ${stories}" class="mb-4">
+					<div class="card shadow-sm">
+						<div class="card-body">
+							<h4 class="card-title" th:text="${story.storyName}">Story Title</h4>
+							<h6 class="card-subtitle mb-2 text-muted" th:text="${story.authorName}">Author</h6>
+							<span class="badge bg-secondary mb-2" th:text="${story.genre}">Genre</span>
+							<p class="card-text" th:text="${story.description}">Description</p>
+						</div>
+					</div>
+				</div>
 				</ul>
 			</div>
 		</div>

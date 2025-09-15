@@ -15,6 +15,4 @@ public class StoryDTO {
     private String genre;
     private String description;
     private String authorName;
-
-    // Constructors, getters, setters
 }
